@@ -4,7 +4,7 @@
   "description": "",
   "main": "chatbot.js",
   "scripts": {
-    "start": "node chatbot.js",
+    "start": "apt-get update && apt-get install -y libglib2.0-0 && node chatbot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
