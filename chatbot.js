@@ -24,7 +24,7 @@ async function connectToWhatsApp() {
 
     const sock = makeWASocket({
         auth: state,
-        printQRInTerminal: true,
+        printQRInTerminal: false, // Alterado para false
         logger: pino({ level: 'silent' }),
         browser: ['Chatbot Mirata', 'Chrome', '1.0'],
     });
@@ -47,7 +47,9 @@ async function connectToWhatsApp() {
         }
 
         if (qr) {
-            console.log('Por favor, escaneie o QR Code acima para conectar o WhatsApp Business.');
+            // Este é o novo código para gerar o link do QR Code
+            console.log('QR Code gerado. Copie o link abaixo e cole no seu navegador para escanear:');
+            console.log(`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(qr)}`);
         }
     });
 
