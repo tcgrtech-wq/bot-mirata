@@ -4,6 +4,7 @@ const { default: makeWASocket, useMultiFileAuthState, DisconnectReason } = requi
 const { Boom } = require('@hapi/boom');
 const fs = require('fs');
 const pino = require('pino');
+const qrcode = require('qrcode'); // Adicionamos a nova biblioteca
 
 // Configuração do Express para manter o bot online
 const app = express();
@@ -29,7 +30,7 @@ async function connectToWhatsApp() {
         browser: ['Chatbot Mirata', 'Chrome', '1.0'],
     });
 
-    sock.ev.on('connection.update', (update) => {
+    sock.ev.on('connection.update', async (update) => {
         const { connection, lastDisconnect, qr } = update;
 
         if (connection === 'close') {
@@ -47,9 +48,9 @@ async function connectToWhatsApp() {
         }
 
         if (qr) {
-            // Este é o novo código para gerar o link do QR Code
-            console.log('QR Code gerado. Copie o link abaixo e cole no seu navegador para escanear:');
-            console.log(`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(qr)}`);
+            // Este é o novo código que usa a biblioteca 'qrcode' para gerar um QR Code funcional no terminal
+            console.log('Por favor, escaneie o QR Code abaixo:');
+            console.log(await qrcode.toString(qr, { type: 'terminal', small: true }));
         }
     });
 
@@ -74,7 +75,7 @@ async function connectToWhatsApp() {
                 });
             } else if (text === '3') {
                 await sock.sendMessage(userId, {
-                    text: `Ótimo!  Para iniciar sua solicitação, acesse nosso link seguro:\n\n*🔗 Link para Solicitação:* https://miratacapital.com/solicitar-credito\n\nPara voltar ao menu, digite *Menu*.`
+                    text: `Ótimo! Para iniciar sua solicitação, acesse nosso link seguro:\n\n*🔗 Link para Solicitação:* https://miratacapital.com/solicitar-credito\n\nPara voltar ao menu, digite *Menu*.`
                 });
             } else if (text === '4') {
                 await sock.sendMessage(userId, {
