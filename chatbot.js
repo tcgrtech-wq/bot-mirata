@@ -74,7 +74,7 @@ async function connectToWhatsApp() {
                 });
             } else if (text === '3') {
                 await sock.sendMessage(userId, {
-                    text: `Ótimo! Para iniciar sua solicitação, acesse nosso link seguro:\n\n*🔗 Link para Solicitação:* https://miratacapital.com/solicitar-credito\n\nPara voltar ao menu, digite *Menu*.`
+                    text: `Ótimo!  Para iniciar sua solicitação, acesse nosso link seguro:\n\n*🔗 Link para Solicitação:* https://miratacapital.com/solicitar-credito\n\nPara voltar ao menu, digite *Menu*.`
                 });
             } else if (text === '4') {
                 await sock.sendMessage(userId, {
